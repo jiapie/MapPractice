@@ -40,20 +40,16 @@
     
     //NSLog(@"Map MRTStation:%@",aAllMRTStation);
     allPoint = [[NSMutableArray alloc]init];
-
     for(id a in aAllMRTStation)
     {
         NSMutableDictionary *d = a;
         MKPointAnnotation *Landpoint = [[MKPointAnnotation alloc] init];
-        Landpoint.title = [d valueForKey:@"車站編號"];
-        NSString *sSubtitle = [NSString stringWithFormat:@"%@(%@)",[d valueForKey:@"車站英文名稱"],[d valueForKey:@"車站中文名稱"]];
+        Landpoint.title = [d valueForKey:sStationNo];
+        NSString *sSubtitle = [NSString stringWithFormat:@"%@(%@)",[d valueForKey:sStationEnglishName],[d valueForKey:sStationChineseName]];
+        sSubtitle = [sSubtitle stringByReplacingOccurrencesOfString:@" " withString:@""];
         Landpoint.subtitle = sSubtitle;
-        
-        //static CLLocationCoordinate2D TaiwanCenter          = {23.5832,120.5825};
-        NSData *Y = [d valueForKey:@"車站緯度"];
-        NSString *sY = [NSString stringWithFormat:@"%@",Y];
-        NSData *X = [d valueForKey:@"車站經度"];
-        NSString *sX = [NSString stringWithFormat:@"%@",X];
+        NSString *sY = [NSString stringWithFormat:@"%@",[d valueForKey:sStationLatitude]];
+        NSString *sX = [NSString stringWithFormat:@"%@",[d valueForKey:sStationLongitude]];
         
         CLLocationCoordinate2D naviCoord = CLLocationCoordinate2DMake([sY doubleValue],[sX doubleValue]);
         Landpoint.coordinate = naviCoord;
@@ -74,7 +70,6 @@
 //換圖, 換顏色
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    //CLLocationCoordinate2D nowCoord = [annotation coordinate];
     NSString *sTitle = [annotation title];
     NSString *firstLetter = [sTitle substringToIndex:1];
     firstLetter = [firstLetter uppercaseString];
@@ -92,15 +87,14 @@
         annotationView = nil;
     }
     else
-    {//Secure (Green),(Purple) ,Not Fund(Red)
-        //annotationView = nil;
+    {
         if([firstLetter isEqualToString:@"R"])
         {//紅線
-            annotationView.image = [UIImage imageNamed:@"Circle_Red.png"];
+            annotationView.image = [UIImage imageNamed:sIconRed];
         }
         else //if([firstLetter isEqualToString:@"O"])
         {//橘線
-            annotationView.image = [UIImage imageNamed:@"Circle_Orange.png"];
+            annotationView.image = [UIImage imageNamed:sIconOrange];
         }
     }
     

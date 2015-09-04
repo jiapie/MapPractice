@@ -40,7 +40,16 @@ static MKCoordinateSpan AllMap                      = {3.50f, 3.50f};
 static MKCoordinateSpan NearbyMap                   = {0.2f, 0.2f};
 static double dbShortDistance                       = 30.0;
 
-static NSString *cOK                                = @"確定";
+static NSString *sIconRed       = @"Circle_Red.png";
+static NSString *sIconOrange    = @"Circle_Orange.png";
+
+static NSString *cOK                    = @"確定";
+
+static NSString *sStationNo             = @"車站編號";
+static NSString *sStationChineseName    = @"車站中文名稱";
+static NSString *sStationEnglishName    = @"車站英文名稱";
+static NSString *sStationLatitude       = @"車站緯度";
+static NSString *sStationLongitude      = @"車站經度";
 
 @interface Global: NSObject
 {
